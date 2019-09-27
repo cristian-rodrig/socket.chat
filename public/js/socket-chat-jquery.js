@@ -20,7 +20,7 @@ function renderizarUsuarios(personas) {
     var html = '';
 
     html += '<li>';
-    html += '<a href = "javascript:void(0)"class = "active" > Chat de < span > ' + params.get('sala') + '</span></html +=a>';
+    html += '<a href = "javascript:void(0)"class = "active" > Chat de  <span> ' + params.get('sala') + '</span></html +=a>';
     html += '</li>';
 
     for (var i = 0; i < personas.length; i++) {
@@ -36,10 +36,15 @@ function renderizarUsuarios(personas) {
 function renderizarMensajes(mensaje, yo) {
 
     var html = '';
-    var fecha = new Date(mensaje.fecha);
-    var hora = fecha.getHours() + ':' + fecha.getMinutes();
+    var fecha = new Date();
+    var minutos = fecha.getMinutes();
+    if (minutos < 10) {
+        minutos = '0' + minutos;
+    }
+
+    var hora = fecha.getHours() + ':' + minutos;
     var adminClass = 'info';
-    if (mensaje.nombre === 'Administrador'){
+    if (mensaje.nombre === 'Administrador') {
         adminClass = 'danger';
     }
 
@@ -55,15 +60,15 @@ function renderizarMensajes(mensaje, yo) {
         html += '</li> ';
 
     } else {
-        
+
         html += '<li class ="animated fadeIn">';
 
-        if(mensaje.nombre !== 'Administrador'){
+        if (mensaje.nombre !== 'Administrador') {
             html += '    <div class="chat-img"><img src="assets/images/users/1.jpg" alt="user" </div>';
-        }        
+        }
         html += '    <div class="chat-content">';
         html += '        <h5>' + mensaje.nombre + '</h5>';
-        html += '        <div class="box bg-light-'+ adminClass +'">' + mensaje.mensaje + '</div>';
+        html += '        <div class="box bg-light-' + adminClass + '">' + mensaje.mensaje + '</div>';
         html += '    </div>';
         html += '    <div class="chat-time">' + hora + '</div>';
         html += '</li>';
